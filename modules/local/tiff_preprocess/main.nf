@@ -88,7 +88,7 @@ process TIFF_PREPROCESS {
     imwrite("${prefix}_calcium_resized.tif", image_calcium_resized.astype(np.float32))
     imwrite("${prefix}_caspase_resized.tif", image_caspase_resized.astype(np.float32))
     
-    print(f"Processed {tiff}")
+    print(f"Processed ${tiff}")
     print(f"Original shape: {image.shape}")
     print(f"Actin channel resized shape: {image_actin_resized.shape}")
 
