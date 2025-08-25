@@ -35,7 +35,7 @@ process CELLPOSE_SEGMENT {
     image = imread("${image}")
     
     # Initialize Cellpose model
-    cellpose_model = models.CellposeModel(gpu=${gpu}, model_type='${model_type}')
+    cellpose_model = models.CellposeModel(gpu=${gpu_python}, model_type='${model_type}')
     
     # Initialize masks array
     masks = np.zeros_like(image, dtype=np.uint16)
