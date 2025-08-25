@@ -62,11 +62,11 @@ nextflow run nf-core/microscopycellpose \
 ```
 
 You can customize the Cellpose segmentation parameters:
-- `--diameter`: Expected cell diameter in pixels (default: 45)
-- `--model_type`: Cellpose model to use (default: cyto3)
-- `--flow_threshold`: Flow error threshold (default: 0.8)
-- `--cellprob_threshold`: Cell probability threshold (default: -1.0)
-- `--gpu`: Enable GPU acceleration (default: false)
+- `--diameter 45`: Expected cell diameter in pixels (number, default: 45)
+- `--model_type cyto3`: Cellpose model to use (string, options: cyto, cyto2, cyto3, nuclei)
+- `--flow_threshold 0.8`: Flow error threshold (number, default: 0.8)
+- `--cellprob_threshold -1.0`: Cell probability threshold (number, default: -1.0)
+- `--gpu false`: Enable GPU acceleration (boolean, default: false)
 
 > [!WARNING]
 > Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_; see [docs](https://nf-co.re/docs/usage/getting_started/configuration#custom-configuration-files).
