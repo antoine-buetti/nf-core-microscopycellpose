@@ -234,19 +234,19 @@
     ],
     "properties": {
         "diameter": {
-            "type": "string"
+            "type": "number"
         },
         "flow_threshold": {
-            "type": "string"
+            "type": "number"
         },
         "cellprob_threshold": {
-            "type": "string"
+            "type": "number"
         },
         "model_type": {
             "type": "string"
         },
         "gpu": {
-            "type": "string"
+            "type": "boolean"
         }
     }
 }
