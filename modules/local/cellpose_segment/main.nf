@@ -21,7 +21,7 @@ process CELLPOSE_SEGMENT {
     def flow_threshold = task.ext.flow_threshold ?: '0.8'
     def cellprob_threshold = task.ext.cellprob_threshold ?: '-1.0'
     def model_type = task.ext.model_type ?: 'cyto3'
-    def gpu = task.ext.gpu ?: false
+    def gpu = task.ext.gpu ?: False
     """
     #!/usr/bin/env python3
 
