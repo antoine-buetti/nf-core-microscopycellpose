@@ -33,41 +33,41 @@ process CELLPOSE_SEGMENT {
 
     # Load the preprocessed actin channel image
     image = imread("${image}")
-    
+
     # Initialize Cellpose model
     cellpose_model = models.CellposeModel(gpu=${gpu_python}, model_type='${model_type}')
-    
+
     # Initialize masks array
     masks = np.zeros_like(image, dtype=np.uint16)
-    
+
     # Process each frame if it's a time series, otherwise process single frame
     if len(image.shape) == 3:  # Time series
         print(f"Processing {image.shape[0]} frames...")
         for i in tqdm(range(image.shape[0])):
             masks[i], flows, styles = cellpose_model.eval(
-                image[i], 
-                diameter=${diameter}, 
-                do_3D=False, 
-                channels=[0, 0], 
-                normalize=True, 
-                flow_threshold=${flow_threshold}, 
+                image[i],
+                diameter=${diameter},
+                do_3D=False,
+                channels=[0, 0],
+                normalize=True,
+                flow_threshold=${flow_threshold},
                 cellprob_threshold=${cellprob_threshold}
             )
     else:  # Single frame
         print("Processing single frame...")
         masks, flows, styles = cellpose_model.eval(
-            image, 
-            diameter=${diameter}, 
-            do_3D=False, 
-            channels=[0, 0], 
-            normalize=True, 
-            flow_threshold=${flow_threshold}, 
+            image,
+            diameter=${diameter},
+            do_3D=False,
+            channels=[0, 0],
+            normalize=True,
+            flow_threshold=${flow_threshold},
             cellprob_threshold=${cellprob_threshold}
         )
-    
+
     # Save masks
     imwrite("${prefix}_cell_masks.tif", masks.astype(np.uint16))
-    
+
     print(f"Segmentation completed for ${image}")
     print(f"Masks shape: {masks.shape}")
     print(f"Number of unique cells found: {len(np.unique(masks)) - 1}")  # -1 to exclude background
