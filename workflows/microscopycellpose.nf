@@ -39,7 +39,7 @@ workflow MICROSCOPYCELLPOSE {
     //
     CELLPOSE_SEGMENT (
         //TIFF_PREPROCESS.out.actin_channel
-        TIFF_PREPROCESS.out.caspase_channel
+        TIFF_PREPROCESS.out.whatever
     )
     ch_versions = ch_versions.mix(CELLPOSE_SEGMENT.out.versions.first())
 
