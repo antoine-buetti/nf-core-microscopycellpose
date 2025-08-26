@@ -71,12 +71,14 @@ process CELLPOSE_SEGMENT {
     print(f"Segmentation completed for ${image}")
     print(f"Masks shape: {masks.shape}")
     print(f"Number of unique cells found: {len(np.unique(masks)) - 1}")  # -1 to exclude background
+
+    # Create versions file
+    import sys
+    import cellpose
+    
+    with open("versions.yml", "w") as f:
+        f.write('"${task.process}":\\n')
+        f.write(f'    python: "{sys.version.split()[0]}"\\n')
+        f.write(f'    numpy: "{np.__version__}"\\n')
     """
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //')
-        cellpose: \$(cellpose --version | awk 'NR==2 {print \$3}')
-        numpy: \$(python -c "import numpy; print(numpy.__version__)")
-        tifffile: \$(python -c "import tifffile; print(tifffile.__version__)")
-    END_VERSIONS
 }
