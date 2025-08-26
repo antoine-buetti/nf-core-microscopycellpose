@@ -22,6 +22,7 @@ process CELLPOSE_SEGMENT {
     def cellprob_threshold = task.ext.cellprob_threshold ?: '-1.0'
     def model_type = task.ext.model_type ?: 'cyto3'
     def gpu = task.ext.gpu ?: false
+    def gpu_python = gpu ? 'True' : 'False'
     """
     #!/usr/bin/env python3
 
@@ -34,7 +35,7 @@ process CELLPOSE_SEGMENT {
     image = imread("${image}")
     
     # Initialize Cellpose model
-    cellpose_model = models.CellposeModel(gpu=${gpu}, model_type='${model_type}')
+    cellpose_model = models.CellposeModel(gpu=${gpu_python}, model_type='${model_type}')
     
     # Initialize masks array
     masks = np.zeros_like(image, dtype=np.uint16)
@@ -70,15 +71,12 @@ process CELLPOSE_SEGMENT {
     print(f"Segmentation completed for ${image}")
     print(f"Masks shape: {masks.shape}")
     print(f"Number of unique cells found: {len(np.unique(masks)) - 1}")  # -1 to exclude background
-
-    # Create versions file
-    import sys
-    import cellpose
-    
-    with open("versions.yml", "w") as f:
-        f.write('"${task.process}":\\n')
-        f.write(f'    python: "{sys.version.split()[0]}"\\n')
-        f.write(f'    cellpose: "{cellpose.__version__}"\\n')
-        f.write(f'    numpy: "{np.__version__}"\\n')
     """
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python --version | sed 's/Python //')
+        cellpose: \$(cellpose --version | awk 'NR==2 {print \$3}')
+        numpy: \$(python -c "import numpy; print(numpy.__version__)")
+        tifffile: \$(python -c "import tifffile; print(tifffile.__version__)")
+    END_VERSIONS
 }
