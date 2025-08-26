@@ -38,7 +38,8 @@ workflow MICROSCOPYCELLPOSE {
     // MODULE: Run Cellpose segmentation on actin channel
     //
     CELLPOSE_SEGMENT (
-        TIFF_PREPROCESS.out.actin_channel
+        //TIFF_PREPROCESS.out.actin_channel
+        TIFF_PREPROCESS.out.caspase_channel
     )
     ch_versions = ch_versions.mix(CELLPOSE_SEGMENT.out.versions.first())
 
