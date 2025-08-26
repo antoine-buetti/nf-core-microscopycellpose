@@ -8,9 +8,12 @@ process TIFF_PREPROCESS {
     tuple val(meta), path(tiff)
 
     output:
-    tuple val(meta), path("*_actin_resized.tif"), emit: actin_channel
+    //tuple val(meta), path("*_actin_resized.tif"), emit: actin_channel
+    //tuple val(meta), path("*_calcium_resized.tif"), emit: calcium_channel, optional: true
+    //tuple val(meta), path("*_caspase_resized.tif"), emit: caspase_channel, optional: true
+    tuple val(meta), path("*_caspase_resized.tif"), emit: caspase_channel
+    tuple val(meta), path("*_actin_resized.tif"), emit: actin_channel, optional: true
     tuple val(meta), path("*_calcium_resized.tif"), emit: calcium_channel, optional: true
-    tuple val(meta), path("*_caspase_resized.tif"), emit: caspase_channel, optional: true
     path "versions.yml", emit: versions
 
     when:
