@@ -120,6 +120,45 @@
                 }
             }
         },
+        "cellpose_options": {
+            "title": "Cellpose segmentation options",
+            "type": "object",
+            "fa_icon": "fas fa-microscope",
+            "description": "Parameters for Cellpose cell segmentation",
+            "properties": {
+                "diameter": {
+                    "type": "number",
+                    "default": 45,
+                    "description": "Expected cell diameter in pixels for Cellpose segmentation",
+                    "fa_icon": "fas fa-circle"
+                },
+                "flow_threshold": {
+                    "type": "number",
+                    "default": 0.8,
+                    "description": "Flow error threshold for Cellpose segmentation",
+                    "fa_icon": "fas fa-water"
+                },
+                "cellprob_threshold": {
+                    "type": "number",
+                    "default": -1.0,
+                    "description": "Cell probability threshold for Cellpose segmentation",
+                    "fa_icon": "fas fa-percentage"
+                },
+                "model_type": {
+                    "type": "string",
+                    "default": "cyto3",
+                    "description": "Cellpose model type to use for segmentation",
+                    "fa_icon": "fas fa-brain",
+                    "enum": ["cyto", "cyto2", "cyto3", "nuclei"]
+                },
+                "gpu": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Enable GPU acceleration for Cellpose",
+                    "fa_icon": "fas fa-microchip"
+                }
+            }
+        },
         "generic_options": {
             "title": "Generic options",
             "type": "object",
@@ -226,6 +265,9 @@
             "$ref": "#/$defs/reference_genome_options"
         },
         {
+            "$ref": "#/$defs/cellpose_options"
+        },
+        {
             "$ref": "#/$defs/institutional_config_options"
         },
         {
@@ -234,19 +276,35 @@
     ],
     "properties": {
         "diameter": {
-            "type": "string"
+            "type": "number",
+            "default": 45,
+            "description": "Expected cell diameter in pixels for Cellpose segmentation",
+            "fa_icon": "fas fa-circle"
         },
         "flow_threshold": {
-            "type": "string"
+            "type": "number",
+            "default": 0.8,
+            "description": "Flow error threshold for Cellpose segmentation",
+            "fa_icon": "fas fa-water"
         },
         "cellprob_threshold": {
-            "type": "string"
+            "type": "number",
+            "default": -1.0,
+            "description": "Cell probability threshold for Cellpose segmentation",
+            "fa_icon": "fas fa-percentage"
         },
         "model_type": {
-            "type": "string"
+            "type": "string",
+            "default": "cyto3",
+            "description": "Cellpose model type to use for segmentation",
+            "fa_icon": "fas fa-brain",
+            "enum": ["cyto", "cyto2", "cyto3", "nuclei"]
         },
         "gpu": {
-            "type": "string"
+            "type": "boolean",
+            "default": false,
+            "description": "Enable GPU acceleration for Cellpose",
+            "fa_icon": "fas fa-microchip"
         }
     }
 }
